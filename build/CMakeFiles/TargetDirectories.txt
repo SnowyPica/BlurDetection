@@ -1,0 +1,3 @@
+/home/zb/下载/Blur_Detection/build/CMakeFiles/edit_cache.dir
+/home/zb/下载/Blur_Detection/build/CMakeFiles/rebuild_cache.dir
+/home/zb/下载/Blur_Detection/build/CMakeFiles/BLUR_DETECTION.dir
