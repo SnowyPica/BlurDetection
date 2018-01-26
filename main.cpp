@@ -26,13 +26,16 @@ int main(int argc, const char * argv[])
 
     string image_path;
     image_path = data_name;
-    // img_convert convert;
-    // convert.blurRandomImages(image_path, 30);
+    img_convert convert;
+    convert.blurRandomImages(image_path, 30);
 
-    LimitTest limit_test;
-    limit_test.blurBestImages(image_path, 30);
+    // LimitTest limit_test;    
+    // limit_test.blurBestImages(image_path,30);
 
     LaplacianDeblur deblur1;
+    for(int i=0;i < 30;i++){
+        deblur1.blur[i] = convert.isBlur[i];
+    }
     deblur1.loadImages(image_path,30);
     deblur1.blurDetect(image_path,30);
 

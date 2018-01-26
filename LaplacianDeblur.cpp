@@ -45,6 +45,12 @@ void LaplacianDeblur::blurDetect(string image_name,int num_image){
     // }
     // mean_blur = 0;
     // mean_not_blur = 0;
+    for(int i=0;i<num_image;i++){
+        if(blur[i]==1){
+            cout<<"Frame "<< i <<" is Blur"<<endl;
+            outf<<"Frame "<< i <<" is Blur"<<"\r\n";
+        }
+    }
     _variance var[num_image];
     cout<<images.size()<<endl;  
     outf << "Frame_Num"<<"\t"<<"Mean"<<"\t\t"<<"Variance"<<"\t"<<"Class"<<"\r\n";
@@ -66,38 +72,21 @@ void LaplacianDeblur::blurDetect(string image_name,int num_image){
         var[i].variance = sd1*sd1;
         var[i].mean = m1;
         // cout << "均值: " << m1 << " , 方差: " << sd1*sd1 << endl;
-        // if(i==0||i==3||i==6||i==9||i==12){
-        //     mean_blur += sd1*sd1;
-        // }
-        // else{
-        //     mean_not_blur += sd1*sd1;
-        // }
-        // if (sd1*sd1 < 1249){  
-        //     // cout << "第"<<i+1<<"帧是模糊图像" << endl;  
-        //     outf << i+1<<"\t\t"<< m1 << "\t\t" << sd1*sd1 <<"\t\t"<<0<<"\r\n";
-        //     blur[i+1] = 1;
-        // } 
-        // else{
-        //     // cout << "第"<<i+1<<"帧是清晰图像" << endl;
-        //     outf << i+1<<"\t\t"<< m1 << "\t\t" << sd1*sd1 <<"\t\t"<<1<<"\r\n";  
-        // }
     }
     sort(var, var+num_image, LaplacianDeblur::cmp);
-    int error_num = 0;
+    int select_blur_num = 0;
     for(int i=0;i<15;i++){
         cout << var[i].num<<"\t\t"<< var[i].mean << "\t\t" << var[i].variance <<"\t\t"<<1<<endl;
         outf << var[i].num<<"\t\t"<< var[i].mean << "\t\t" << var[i].variance <<"\t\t"<<1<<"\r\n";
-        // if((var[i].num%2==1) && (var[i].num<20)){
-        //     error_num++;
-        // }
+        if(blur[var[i].num]==1){
+            select_blur_num++;
+        }
     }
     for(int i=15;i<num_image;i++){
         cout << var[i].num<<"\t\t"<< var[i].mean << "\t\t" << var[i].variance <<"\t\t"<<0<<endl;
         outf << var[i].num<<"\t\t"<< var[i].mean << "\t\t" << var[i].variance <<"\t\t"<<0<<"\r\n";
     }
 
-    // cout<<mean_blur/5<<"   "<<mean_not_blur/25<<endl;
-    // outf<<"Blur_Variance_Mean: "<<mean_blur/10<<"\r\n"<<"Clear_Variance_Mean: "<<mean_not_blur/20<<"\r\n";
-    // outf<<"Total_Variance_Mean: "<<(mean_blur+mean_not_blur)/30<<"\r\n";
+    outf<<"select blur num:"<< select_blur_num <<"\r\n";
     outf.close();
 }

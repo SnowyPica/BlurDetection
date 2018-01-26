@@ -1,10 +1,16 @@
 #ifndef img_convert_hpp
 #define img_convert_hpp
 
+#include <iostream>
+#include <stdlib.h>
 #include <stdio.h>
-#include <vector>
 #include <string>
+#include <vector>
+#include <time.h>
+#include <fstream>
+#include <algorithm>
 #include "opencv2/opencv.hpp"
+
 using namespace std;
 using namespace cv;
 

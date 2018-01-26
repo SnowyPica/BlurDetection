@@ -61,6 +61,9 @@ void LimitTest::blurBestImages(string image_name, int frame_num){
     }
     string frameNumStr(num_str);
     string fullname =  "../image_blur/" + image_name + '/' + frameNumStr + ".jpg";
+    string fullname1 = "../compare/" + image_name + '/' + frameNumStr + ".jpg";
+    string fullname2 = "../compare/" + image_name + '/' + frameNumStr + "_Blur" + ".jpg";
+    imwrite(fullname1,images[num]);
     Mat dst;
     float window_[9] = {0,0,0.0091,
                         0,0.9818,0,
@@ -70,5 +73,6 @@ void LimitTest::blurBestImages(string image_name, int frame_num){
     dst.copyTo(images[num]);
     if(!dst.data) cout << "image is not created successfully!\n"<<endl;
     imwrite(fullname, dst);
+    imwrite(fullname2, dst);
 
-}
+}   
